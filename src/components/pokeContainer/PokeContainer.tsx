@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
-import firebase from "firebase"
+import { GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup} from "firebase/auth";
 
 function capitalizeFirstLetter(string:string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -11,14 +12,26 @@ export default function PokeContainer(): JSX.Element {
   const [pokemonData, setPokemonData] = useState({name:"",sprites:{front_default:""},id: 0,base_experience: 0})
   
   async function handleAuth(){
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().singInWithPopup(provider)
-      .then( (result:any) => {
-          return console.log(`${result.user.email} a iniciado sesion`)
-      })
-      .catch((error:any) => {
-          console.log("Error")
-      }) 
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+signInWithPopup(auth, provider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+    const user = result.user;
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
 }
 
   async function getPokemonHandler() {
