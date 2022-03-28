@@ -71,9 +71,9 @@ export default function PokeContainer(): JSX.Element {
                             >
                               Get New Pokemon
                             </button>
-                            <button 
-                            onClick={()=>handleAuth()}>iniciarcon google</button>
                         </div>
+                        <button 
+                            onClick={()=>handleAuth()}>iniciarcon google</button>
                     </div>
                 </div>
             </div>
