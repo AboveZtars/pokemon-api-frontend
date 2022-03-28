@@ -3,6 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDssIREF08AFBr1nc4LMVOAWdW-12TYKn0",
+  authDomain: "sistema-pokemon.firebaseapp.com",
+  projectId: "sistema-pokemon",
+  storageBucket: "sistema-pokemon.appspot.com",
+  messagingSenderId: "569305840257",
+  appId: "1:569305840257:web:dbdc52859750a7c8042b80",
+  measurementId: "G-CWRFMJ5EHL"
+};
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 ReactDOM.render(
   <React.StrictMode>

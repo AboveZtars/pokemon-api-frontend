@@ -1,10 +1,22 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import firebase from "firebase"
 
 export default function PokeContainer(): JSX.Element {
 
   const [pokemonData, setPokemonData] = useState({name:"",sprites:{front_default:""},id: 0,base_experience: 0})
   
+  async function handleAuth(){
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().singInWithPopup(provider)
+        .then( (result:any) => {
+            return console.log(`${result.user.email} a iniciado sesion`)
+        })
+        .catch((error:any) => {
+            console.log("Error")
+        }) 
+  }
+
   async function getPokemonHandler() {
     try {
       const response = await axios.get("https://poke-api-jtpdsf3exa-uc.a.run.app")
@@ -70,6 +82,9 @@ export default function PokeContainer(): JSX.Element {
                             >
                               Get New Pokemon
                             </button>
+                            <button 
+                            className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold"
+                            onClick={()=>handleAuth()}>iniciarcon google</button>
                         </div>
                     </div>
                 </div>
