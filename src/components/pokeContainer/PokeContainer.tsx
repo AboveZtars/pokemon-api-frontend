@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import firebase from "firebase"
 
 function capitalizeFirstLetter(string:string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -9,6 +10,17 @@ export default function PokeContainer(): JSX.Element {
 
   const [pokemonData, setPokemonData] = useState({name:"",sprites:{front_default:""},id: 0,base_experience: 0})
   
+  async function handleAuth(){
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().singInWithPopup(provider)
+      .then( (result:any) => {
+          return console.log(`${result.user.email} a iniciado sesion`)
+      })
+      .catch((error:any) => {
+          console.log("Error")
+      }) 
+}
+
   async function getPokemonHandler() {
     try {
       const response = await axios.get("https://poke-api-jtpdsf3exa-uc.a.run.app")
@@ -59,6 +71,9 @@ export default function PokeContainer(): JSX.Element {
                             >
                               Get New Pokemon
                             </button>
+                            <button 
+                            onClick={()=>handleAuth()}>iniciarcon google</button>
+                    </div>
                         </div>
                     </div>
                 </div>
