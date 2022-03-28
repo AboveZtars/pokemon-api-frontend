@@ -73,7 +73,6 @@ export default function PokeContainer(): JSX.Element {
                             </button>
                             <button 
                             onClick={()=>handleAuth()}>iniciarcon google</button>
-                    </div>
                         </div>
                     </div>
                 </div>
